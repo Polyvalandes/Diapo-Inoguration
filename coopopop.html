@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>coopopop — entreprise solidaire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --kraft:#EDE4CF;
+    --kraft-deep:#E2D5B8;
+    --line:#C6B990;
+    --ink:#2B3A55;
+    --ink-soft:#5B6685;
+    --stamp:#A63A2E;
+    --paper:#FAF6EC;
+    --moss:#54684E;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--kraft);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.6;
+  }
+  @media (prefers-reduced-motion: reduce){ *{animation:none !important; transition:none !important;} }
+
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+  a{color:inherit;}
+
+  h1,h2,h3{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:0.02em;margin:0;color:var(--ink);}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+
+  /* ---------- perforation / déchirure entre sections ---------- */
+  .tear{
+    height:14px;width:100%;
+    background-image: radial-gradient(circle at 12px 0, transparent 7px, var(--kraft) 7.5px);
+    background-size:24px 14px;
+    background-repeat:repeat-x;
+  }
+  .tear.flip{ transform:rotate(180deg); }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:70px 0 40px;
+    position:relative;
+    overflow:hidden;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:0.12em;color:var(--ink-soft);
+    display:flex;align-items:center;gap:10px;margin-bottom:18px;
+  }
+  .eyebrow::before{content:'';width:26px;height:1px;background:var(--line);display:inline-block;}
+  .hero h1{font-size:clamp(48px,9vw,92px);line-height:0.96;color:var(--ink);}
+  .hero .sub{
+    font-family:'Oswald',sans-serif;font-size:clamp(18px,2.6vw,26px);color:var(--stamp);
+    text-transform:none;margin-top:6px;font-weight:500;
+  }
+  .hero p.lead{max-width:560px;font-size:17.5px;color:var(--ink-soft);margin-top:24px;}
+
+  /* tampon encreur, élément signature */
+  .stamp{
+    position:absolute; top:56px; right:6px;
+    width:150px;height:150px;border-radius:50%;
+    border:3px solid var(--stamp); color:var(--stamp);
+    display:flex;align-items:center;justify-content:center;text-align:center;
+    transform:rotate(-14deg);
+    font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.08em;
+    opacity:0.9; mix-blend-mode:multiply;
+    padding:14px;
+  }
+  .stamp::before{
+    content:'';position:absolute;inset:9px;border:1px solid var(--stamp);border-radius:50%;opacity:0.7;
+  }
+  .stamp b{display:block;font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:0.03em;margin-bottom:3px;}
+  @media (max-width:640px){ .stamp{ position:static; transform:rotate(-6deg); margin-top:24px; } }
+
+  /* ---------- TICKET (carte façon bon de travail) ---------- */
+  .ticket{
+    background:var(--paper);
+    position:relative;
+    margin:36px 0;
+    padding:32px 30px 30px;
+    border:1px solid var(--line);
+  }
+  .ticket::before,.ticket::after{
+    content:'';position:absolute;top:50%;transform:translateY(-50%);
+    width:26px;height:26px;border-radius:50%;background:var(--kraft);border:1px solid var(--line);
+  }
+  .ticket::before{left:-14px;}
+  .ticket::after{right:-14px;}
+  .ticket-head{
+    display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:10px;
+    border-bottom:1px dashed var(--line);padding-bottom:14px;margin-bottom:18px;
+  }
+  .ticket-head .ref{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);letter-spacing:0.06em;}
+  .ticket h2{font-size:26px;}
+
+  /* ---------- SECTION GÉNÉRIQUE ---------- */
+  section{padding:50px 0;}
+  .section-label{
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.12em;color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+  .section-title{font-size:clamp(28px,4vw,40px);margin-bottom:26px;}
+
+  /* grille des 3 services */
+  .services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+  @media (max-width:760px){ .services{grid-template-columns:1fr;} }
+  .service{
+    background:var(--paper);border:1px solid var(--line);padding:24px 20px;position:relative;
+  }
+  .service .num{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--stamp);letter-spacing:0.08em;margin-bottom:10px;display:block;}
+  .service h3{font-size:19px;margin-bottom:8px;}
+  .service p{font-size:14.5px;color:var(--ink-soft);margin:0;}
+
+  /* citation / valeur qualité > quantité */
+  .pull{
+    border-left:3px solid var(--stamp); padding:6px 0 6px 22px; margin:34px 0;
+    font-family:'Oswald',sans-serif; font-size:clamp(20px,3vw,28px); color:var(--ink); text-transform:none; font-weight:500;
+  }
+
+  /* liste raisons */
+  .reasons{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:10px;}
+  @media (max-width:700px){ .reasons{grid-template-columns:1fr;} }
+  .reason h3{font-size:18px;margin-bottom:8px;color:var(--moss);}
+  .reason p{color:var(--ink-soft);font-size:15px;margin:0;}
+
+  /* outil interne */
+  .tool-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:start;}
+  @media (max-width:760px){ .tool-grid{grid-template-columns:1fr;} }
+  .feature-list{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:12px;}
+  .feature-list li{display:flex;gap:12px;font-size:14.5px;color:var(--ink-soft);}
+  .feature-list .dot{
+    font-family:'IBM Plex Mono',monospace;color:var(--stamp);flex-shrink:0;font-size:13px;padding-top:2px;
+  }
+  .browser{
+    background:var(--kraft-deep);border:1px solid var(--line);
+  }
+  .browser-bar{
+    display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid var(--line);
+  }
+  .browser-bar span{width:9px;height:9px;border-radius:50%;background:var(--ink-soft);opacity:0.4;}
+  .browser-body{padding:20px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);}
+  .browser-body .row{display:flex;justify-content:space-between;border-bottom:1px dotted var(--line);padding:8px 0;}
+  .browser-body .row:last-child{border-bottom:none;}
+  .tag-chip{
+    display:inline-block;font-size:10.5px;padding:2px 7px;border:1px solid var(--stamp);color:var(--stamp);margin-left:8px;
+  }
+
+  /* contact */
+  .contact{
+    background:var(--ink); color:var(--paper); padding:56px 0; margin-top:20px;
+  }
+  .contact .section-label{color:#AAB4CE;}
+  .contact h2{color:var(--paper);}
+  .contact p{color:#C7CEE0;max-width:520px;}
+  .contact-box{
+    margin-top:26px;border:1px solid #47547A;padding:22px;font-family:'IBM Plex Mono',monospace;font-size:14px;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .contact-box .k{color:#8792AE;font-size:11.5px;letter-spacing:0.08em;}
+  .contact-box .v{color:var(--paper);font-size:15px;}
+
+  footer{padding:26px 0 40px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+</style>
+</head>
+<body>
+
+<div class="wrap hero">
+  <div class="eyebrow">DOSSIER DE PRÉSENTATION — LANDES</div>
+  <h1>coopopop</h1>
+  <div class="sub">Entreprise solidaire</div>
+  <p class="lead">Espaces verts, dépannage informatique, coups de main sur des situations délicates : on intervient là où quelqu'un a besoin d'aide, avec le même soin à chaque fois.</p>
+  <div class="stamp"><span><b>coopopop</b>entreprise<br>solidaire<br>★ landes ★</span></div>
+</div>
+
+<div class="tear"></div>
+
+<div class="wrap">
+  <section id="qui-sommes-nous">
+    <div class="section-label mono">01 — QUI ON EST</div>
+    <h2 class="section-title">Aider, sans condition</h2>
+    <p style="max-width:620px;color:var(--ink-soft);font-size:16.5px;">
+      coopopop est né d'une idée simple : chaque personne mérite d'être aidée. Espace vert à entretenir,
+      souci informatique, ou toute autre situation délicate qui demande un coup de main — on est là.
+      Pas de tri selon la taille du chantier, juste la volonté de bien faire ce qu'on nous confie.
+    </p>
+    <div class="pull">La qualité passe avant la quantité.</div>
+
+    <div class="services">
+      <div class="service">
+        <span class="num mono">N° 01</span>
+        <h3>Espaces verts</h3>
+        <p>Entretien, nettoyage, remise en état d'extérieurs — pour les particuliers comme pour les collectivités.</p>
+      </div>
+      <div class="service">
+        <span class="num mono">N° 02</span>
+        <h3>Missions informatiques</h3>
+        <p>Dépannage, prise en main, petites installations — pour débloquer les situations du quotidien.</p>
+      </div>
+      <div class="service">
+        <span class="num mono">N° 03</span>
+        <h3>Autres coups de main</h3>
+        <p>Situations délicates, travaux ponctuels : on écoute d'abord, on voit ensuite comment aider.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pourquoi">
+    <div class="section-label mono">02 — POURQUOI ON FAIT ÇA</div>
+    <h2 class="section-title">Apprendre en avançant ensemble</h2>
+    <div class="reasons">
+      <div class="reason">
+        <h3>Découvrir le monde du travail</h3>
+        <p>Chaque mission est une occasion concrète de comprendre comment ça marche vraiment, sur le terrain.</p>
+      </div>
+      <div class="reason">
+        <h3>Gagner en autonomie</h3>
+        <p>On veut apprendre à se débrouiller seuls, tout en avançant à plusieurs — comprendre les ficelles de la vie, ensemble.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacter">
+    <div class="section-label mono">03 — POURQUOI NOUS CONTACTER</div>
+    <h2 class="section-title">Des jeunes qui montent en compétence</h2>
+    <p style="max-width:620px;color:var(--ink-soft);font-size:16.5px;">
+      Nous sommes de jeunes entrepreneurs. Notre objectif est simple : devenir meilleurs, mission après mission,
+      tout en gagnant une vraie expérience de terrain. Nous contacter, c'est confier votre besoin à une équipe
+      motivée, sérieuse, et qui a à cœur de bien faire.
+    </p>
+  </section>
+
+  <section id="outil">
+    <div class="section-label mono">04 — CÔTÉ COULISSES</div>
+    <h2 class="section-title">Notre outil de suivi interne</h2>
+    <div class="tool-grid">
+      <div>
+        <p style="color:var(--ink-soft);font-size:15.5px;max-width:480px;">
+          En parallèle du terrain, on a construit notre propre outil pour piloter l'association sérieusement :
+          suivre nos missions, nos échéances, et les demandes qu'on reçoit — pour ne jamais rien laisser filer.
+        </p>
+        <ul class="feature-list">
+          <li><span class="dot mono">→</span> Suivi des missions et des tâches, du lancement jusqu'à la clôture</li>
+          <li><span class="dot mono">→</span> Centralisation des demandes reçues, avec leur suivi</li>
+          <li><span class="dot mono">→</span> Calendrier des échéances de l'équipe</li>
+          <li><span class="dot mono">→</span> Suivi des heures de chacun <span class="tag-chip">RH</span></li>
+          <li><span class="dot mono">→</span> Suivi des dépenses et justificatifs <span class="tag-chip">FINANCE</span></li>
+        </ul>
+      </div>
+      <div class="browser">
+        <div class="browser-bar"><span></span><span></span><span></span></div>
+        <div class="browser-body">
+          <div class="row"><span>Missions actives</span><span>4</span></div>
+          <div class="row"><span>Tâches en cours</span><span>7</span></div>
+          <div class="row"><span>Demandes reçues</span><span>2 nouvelles</span></div>
+          <div class="row"><span>Heures ce mois-ci</span><span>38h</span></div>
+          <div class="row"><span>Statut équipe</span><span>à jour</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="contact">
+  <div class="wrap">
+    <div class="section-label mono">CONTACT</div>
+    <h2>On en parle ?</h2>
+    <p>Décrivez-nous votre besoin, on revient vers vous rapidement pour en discuter.</p>
+    <div class="contact-box">
+      <div><div class="k">EMAIL</div><div class="v">[à compléter — ex : contact@coopopop.fr]</div></div>
+      <div><div class="k">TÉLÉPHONE</div><div class="v">[à compléter]</div></div>
+      <div><div class="k">ZONE D'INTERVENTION</div><div class="v">Landes</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <footer>
+    <span>coopopop — entreprise solidaire</span>
+    <span>Landes, France</span>
+  </footer>
+</div>
+
+</body>
+</html>
